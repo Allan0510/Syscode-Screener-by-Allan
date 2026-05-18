@@ -1279,22 +1279,50 @@ function renderTable(data, highlight = false) {
         : `Total Records: ${data.length}`;
 }
 
-/* Search (cumulative) */
-const  searchSyscode=()=> {
-    const value = document.getElementById("syscodeInput").value.trim();
+/* Search Market (Replace results) */
+const searchMarket = () => {
+    const value = document.getElementById("marketInput").value.trim();
     if (!value) {
-        alert("Enter a SysCode or Market");
+        alert("Enter a Market");
         return;
     }
 
     const lowerValue = value.toLowerCase();
     const matches = syscodeData.filter(d => 
-        (d.syscode && d.syscode.toLowerCase().includes(lowerValue)) || 
         (d.market && d.market.toLowerCase().includes(lowerValue))
     );
 
     if (matches.length === 0) {
-        alert("No matching SysCode or Market found");
+        alert("No matching Market found");
+        return;
+    }
+
+    // Clear previous results before adding new market results
+    accumulatedResults = [];
+
+    matches.forEach(match => {
+        if (!accumulatedResults.some(d => d.syscode === match.syscode)) {
+            accumulatedResults.push(match);
+        }
+    });
+
+    renderTable(accumulatedResults, true);
+    document.getElementById("marketInput").value = "";
+}
+
+/* Search SysCode (Cumulative) */
+const searchSyscode = () => {
+    const value = document.getElementById("syscodeInput").value.trim();
+    if (!value) {
+        alert("Enter a SysCode");
+        return;
+    }
+
+    // Exact matching, case-sensitive
+    const matches = syscodeData.filter(d => d.syscode === value);
+
+    if (matches.length === 0) {
+        alert("No matching SysCode found");
         return;
     }
 
@@ -1307,7 +1335,7 @@ const  searchSyscode=()=> {
     });
 
     if (addedCount === 0 && matches.length > 0) {
-        alert("All matching SysCodes are already added");
+        alert("All matching records are already added");
         return;
     }
 
@@ -1318,12 +1346,17 @@ const  searchSyscode=()=> {
 /* Clear */
 function clearSearch() {
     document.getElementById("syscodeInput").value = "";
+    document.getElementById("marketInput").value = "";
     accumulatedResults = [];
     renderTable(syscodeData, false);
 }
 
-/* Enter key */
-function handleKeyPress(e) {
+/* Enter key handlers */
+function handleMarketKeyPress(e) {
+    if (e.key === "Enter") searchMarket();
+}
+
+function handleSyscodeKeyPress(e) {
     if (e.key === "Enter") searchSyscode();
 }
 
