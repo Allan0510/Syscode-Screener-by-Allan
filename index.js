@@ -1268,8 +1268,8 @@ function renderTable(data, highlight = false) {
             <td>${highlight ? `<span class="highlight-market">${item.market}</span>` : item.market}</td>
             <td>${highlight ? `<span class="highlight-set">${item.setArea}</span>` : item.setArea}</td>
             <td>${highlight ? `<span class="highlight-zone">${item.zoneType}</span>` : item.zoneType}</td>
-            <td>${highlight ? `<span class="highlight-zone">${item.timeZone}</span>` : item.timeZone}</td>
-            <td>${highlight ? `<span class="highlight-zone">${item.XG}</span>` : item.XG}</td>
+            <td>${highlight ? `<span class="highlight-time">${item.timeZone}</span>` : item.timeZone}</td>
+            <td>${highlight ? `<span class="highlight-xg">${item.XG}</span>` : item.XG}</td>
         `;
         body.appendChild(row);
     });
@@ -1279,68 +1279,61 @@ function renderTable(data, highlight = false) {
         : `Total Records: ${data.length}`;
 }
 
-/* Search Market (Replace results) */
-const searchMarket = () => {
-    const value = document.getElementById("marketInput").value.trim();
-    if (!value) {
-        alert("Enter a Market");
+/* Combined Search */
+const performSearch = () => {
+    const marketVal = document.getElementById("marketInput").value.trim();
+    const syscodeVal = document.getElementById("syscodeInput").value.trim();
+
+    if (!marketVal && !syscodeVal) {
+        alert("Please enter a Market or SysCode to search.");
         return;
     }
 
-    const lowerValue = value.toLowerCase();
-    const matches = syscodeData.filter(d => 
-        (d.market && d.market.toLowerCase().includes(lowerValue))
-    );
+    // Process Market Search first if present
+    if (marketVal) {
+        const lowerValue = marketVal.toLowerCase();
+        const matches = syscodeData.filter(d => 
+            (d.market && d.market.toLowerCase().includes(lowerValue))
+        );
 
-    if (matches.length === 0) {
-        alert("No matching Market found");
-        return;
-    }
-
-    // Clear previous results before adding new market results
-    accumulatedResults = [];
-
-    matches.forEach(match => {
-        if (!accumulatedResults.some(d => d.syscode === match.syscode)) {
-            accumulatedResults.push(match);
+        if (matches.length === 0) {
+            alert("No matching Market found");
+            return; // Halt if no market found
         }
-    });
 
-    renderTable(accumulatedResults, true);
-    document.getElementById("marketInput").value = "";
-}
-
-/* Search SysCode (Cumulative) */
-const searchSyscode = () => {
-    const value = document.getElementById("syscodeInput").value.trim();
-    if (!value) {
-        alert("Enter a SysCode");
-        return;
+        accumulatedResults = [];
+        matches.forEach(match => {
+            if (!accumulatedResults.some(d => d.syscode === match.syscode)) {
+                accumulatedResults.push(match);
+            }
+        });
+        
+        document.getElementById("marketInput").value = "";
     }
 
-    // Exact matching, case-sensitive
-    const matches = syscodeData.filter(d => d.syscode === value);
+    // Process Syscode Search next if present
+    if (syscodeVal) {
+        const matches = syscodeData.filter(d => d.syscode === syscodeVal);
+        
+        if (matches.length === 0) {
+            alert("No matching SysCode found");
+        } else {
+            let addedCount = 0;
+            matches.forEach(match => {
+                if (!accumulatedResults.some(d => d.syscode === match.syscode)) {
+                    accumulatedResults.push(match);
+                    addedCount++;
+                }
+            });
 
-    if (matches.length === 0) {
-        alert("No matching SysCode found");
-        return;
-    }
-
-    let addedCount = 0;
-    matches.forEach(match => {
-        if (!accumulatedResults.some(d => d.syscode === match.syscode)) {
-            accumulatedResults.push(match);
-            addedCount++;
+            if (addedCount === 0 && matches.length > 0) {
+                alert("All matching records are already added");
+            }
         }
-    });
-
-    if (addedCount === 0 && matches.length > 0) {
-        alert("All matching records are already added");
-        return;
+        document.getElementById("syscodeInput").value = "";
     }
 
     renderTable(accumulatedResults, true);
-    document.getElementById("syscodeInput").value = "";
 }
 
 /* Clear */
@@ -1353,11 +1346,11 @@ function clearSearch() {
 
 /* Enter key handlers */
 function handleMarketKeyPress(e) {
-    if (e.key === "Enter") searchMarket();
+    if (e.key === "Enter") performSearch();
 }
 
 function handleSyscodeKeyPress(e) {
-    if (e.key === "Enter") searchSyscode();
+    if (e.key === "Enter") performSearch();
 }
 
 /* Load initial data */
