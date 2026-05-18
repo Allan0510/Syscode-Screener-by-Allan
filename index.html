@@ -186,16 +186,15 @@ tbody tr:hover {
         <div class="search-group">
             <label>Search by Market:</label>
             <input id="marketInput" placeholder="Search Market" onkeypress="handleMarketKeyPress(event)">
-            <button class="btn btn-search" onclick="searchMarket()">Search</button>
         </div>
 
         <div class="search-group">
             <label>Search by SysCode:</label>
             <input id="syscodeInput" placeholder="Search SysCode" onkeypress="handleSyscodeKeyPress(event)">
-            <button class="btn btn-search" onclick="searchSyscode()">Search</button>
         </div>
 
         <div class="search-actions">
+            <button class="btn btn-search" onclick="performSearch()">Search</button>
             <button class="btn btn-clear" onclick="clearSearch()">Clear</button>
         </div>
     </div>
