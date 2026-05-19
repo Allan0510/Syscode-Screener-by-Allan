@@ -38,6 +38,9 @@ body::before {
 }
 
 h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     margin-bottom: 20px; /* Reduced space between header and box below */
     font-size: 3.5rem;
@@ -55,9 +58,7 @@ h1 {
     background: rgba(10, 10, 10, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(56, 189, 248, 0.2);
     padding: 30px;
     border-radius: 24px;
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 
@@ -92,10 +93,9 @@ h1 {
     transition: all 0.3s ease;
 }
 
-.search-group:hover {
-    background: rgba(30, 30, 30, 0.8);
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
+.search-box input:hover {
+    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(15, 15, 15, 0.8);
 }
 
 .search-actions {
@@ -204,9 +204,7 @@ h1 {
     background: rgba(10, 10, 10, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(56, 189, 248, 0.2);
     border-radius: 24px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     overflow: hidden;
