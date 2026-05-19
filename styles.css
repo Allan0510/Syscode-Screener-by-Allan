@@ -79,11 +79,7 @@ h1 {
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
 }
 
-.search-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-}
+
 
 .search-box {
     display: flex;
@@ -120,7 +116,7 @@ h1 {
 
 .search-box label {
     font-weight: 500;
-    color: #94a3b8;
+    color: #38bdf8;
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
