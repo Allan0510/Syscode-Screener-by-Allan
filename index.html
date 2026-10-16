@@ -44,6 +44,34 @@
                     <button class="btn btn-search" onclick="performSearch()">Search</button>
                     <button class="btn btn-clear" onclick="clearSearch()">Clear</button>
                 </div>
+
+                <div class="clock-widget">
+                    <div class="clock-ist-box">
+                        <div class="clock-ist-label">
+                            <span class="clock-live-dot"></span>
+                            <span class="clock-ist-tag">IST</span>
+                        </div>
+                        <span class="clock-ist-time" id="clock-ist">--:--:-- --</span>
+                    </div>
+                    <div class="clock-zones-grid">
+                        <div class="clock-zone-item">
+                            <span class="clock-zone-badge">EST</span>
+                            <span class="clock-zone-time" id="clock-est">--:--:-- --</span>
+                        </div>
+                        <div class="clock-zone-item">
+                            <span class="clock-zone-badge">CST</span>
+                            <span class="clock-zone-time" id="clock-cst">--:--:-- --</span>
+                        </div>
+                        <div class="clock-zone-item">
+                            <span class="clock-zone-badge">MST</span>
+                            <span class="clock-zone-time" id="clock-mst">--:--:-- --</span>
+                        </div>
+                        <div class="clock-zone-item">
+                            <span class="clock-zone-badge">PST</span>
+                            <span class="clock-zone-time" id="clock-pst">--:--:-- --</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
