@@ -1245,6 +1245,10 @@ const syscodeData = [
 {syscode: "352", region: "Northeast", setArea: "New York - Wilkes-Barre", market: "Wilkes-Barre", zoneType: "Local",XG: "Liberty", timeZone: "EST"},
 {syscode: "367", region: "Northeast", setArea: "New York - Wilkes-Barre", market: "Wilkes-Barre", zoneType: "Local",XG: "Liberty", timeZone: "EST"},
 {syscode: "3885", region: "Northeast", setArea: "Philadelphia", market: "Philadelphia", zoneType: "Local",XG: "Liberty", timeZone: "EST"},
+{syscode: "1009", region: "Pacific", setArea: "Sacramento/Fresno", market: "Sacramento", zoneType: "Local",XG: "California", timeZone: "PST"},
+{syscode: "1013", region: "Pacific", setArea: "San Francisco/Monterey", market: "San Francisco", zoneType: "Local",XG: "California", timeZone: "PST"},
+{syscode: "1007", region: "Pacific", setArea: "San Francisco/Monterey", market: "Monterey", zoneType: "Local",XG: "California", timeZone: "PST"},
+{syscode: "1061", region: "Northeast", setArea: "New England", market: "Boston", zoneType: "Local",XG: "New England", timeZone: "EST"}, 
 {syscode: "374", region: "Northeast", setArea: "New York - Wilkes-Barre", market: "Wilkes-Barre", zoneType: "Local",XG: "Liberty", timeZone: "EST"}
 ];
 let accumulatedResults = [];
