@@ -1362,14 +1362,14 @@ function handleSyscodeKeyPress(e) {
 /* Time & Clock System */
 function formatZoneTime(date, timeZone) {
     try {
-        const formatter = new Intl.DateTimeFormat('en-US', {
+        const timeFormatter = new Intl.DateTimeFormat('en-US', {
             timeZone,
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
             hour12: true
         });
-        const parts = formatter.formatToParts(date);
+        const parts = timeFormatter.formatToParts(date);
         let hour = '', minute = '', second = '', dayPeriod = '';
         for (const part of parts) {
             if (part.type === 'hour') hour = part.value.padStart(2, '0');
@@ -1377,30 +1377,47 @@ function formatZoneTime(date, timeZone) {
             if (part.type === 'second') second = part.value.padStart(2, '0');
             if (part.type === 'dayPeriod') dayPeriod = part.value.toUpperCase();
         }
-        if (hour && minute && second && dayPeriod) {
-            return `${hour}:${minute}:${second} ${dayPeriod}`;
+        const time = (hour && minute && second && dayPeriod)
+            ? `${hour}:${minute}:${second} ${dayPeriod}`
+            : timeFormatter.format(date).replace(/\u202f/g, ' ');
+
+        let day = '';
+        try {
+            const dayFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone,
+                weekday: 'short'
+            });
+            day = dayFormatter.format(date);
+        } catch (e) {
+            day = date.toLocaleDateString('en-US', { timeZone, weekday: 'short' });
         }
-        return formatter.format(date).replace(/\u202f/g, ' ');
+
+        return { time, day };
     } catch (err) {
         console.error(`Error formatting time for ${timeZone}:`, err);
-        return '--:--:-- --';
+        return { time: '--:--:-- --', day: '---' };
     }
 }
 
 function updateClocks() {
     const now = new Date();
     const timeZones = {
-        'clock-ist': 'Asia/Kolkata',
-        'clock-est': 'America/New_York',
-        'clock-cst': 'America/Chicago',
-        'clock-mst': 'America/Denver',
-        'clock-pst': 'America/Los_Angeles'
+        'ist': 'Asia/Kolkata',
+        'est': 'America/New_York',
+        'cst': 'America/Chicago',
+        'mst': 'America/Denver',
+        'pst': 'America/Los_Angeles'
     };
 
-    for (const [id, tz] of Object.entries(timeZones)) {
-        const el = document.getElementById(id);
-        if (el) {
-            el.textContent = formatZoneTime(now, tz);
+    for (const [key, tz] of Object.entries(timeZones)) {
+        const timeEl = document.getElementById(`clock-${key}`);
+        const dayEl = document.getElementById(`day-${key}`);
+        const { time, day } = formatZoneTime(now, tz);
+        if (timeEl) {
+            timeEl.textContent = time;
+        }
+        if (dayEl) {
+            dayEl.textContent = day;
         }
     }
 }
@@ -1408,6 +1425,7 @@ function updateClocks() {
 // Start live clock updates
 updateClocks();
 setInterval(updateClocks, 1000);
+document.addEventListener('DOMContentLoaded', updateClocks);
 
 /* Load initial data */
 window.onload = () => {
