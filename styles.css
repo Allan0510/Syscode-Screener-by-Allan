@@ -218,7 +218,7 @@ h1 {
     background: rgba(20, 20, 20, 0.6);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    min-width: 300px;
+    min-width: 345px;
     transition: all 0.3s ease;
 }
 
@@ -232,13 +232,15 @@ h1 {
 .clock-ist-box {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 14px;
     padding: 6px 14px;
     background: rgba(0, 0, 0, 0.65);
     border: 1px solid rgba(56, 189, 248, 0.35);
     border-radius: 10px;
     box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.08), 0 0 12px rgba(56, 189, 248, 0.12);
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .clock-ist-box:hover {
@@ -280,6 +282,12 @@ h1 {
     text-transform: uppercase;
 }
 
+.clock-time-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .clock-ist-time {
     font-size: 0.96rem;
     font-weight: 700;
@@ -287,6 +295,32 @@ h1 {
     letter-spacing: 0.05em;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
+}
+
+.clock-day-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    line-height: 1.1;
+}
+
+.clock-ist-day {
+    font-size: 0.72rem;
+    padding: 2px 6px;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.15);
+}
+
+.clock-ist-box:hover .clock-ist-day {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 
 /* Bigger Box Lower Grid: EST, CST, MST, PST */
@@ -306,18 +340,19 @@ h1 {
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 8px;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .clock-zone-item:hover {
-    border-color: rgba(245, 158, 11, 0.45);
+    border-color: rgba(56, 189, 248, 0.45);
     background: rgba(15, 15, 15, 0.85);
-    box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
 }
 
 .clock-zone-badge {
     font-size: 0.72rem;
     font-weight: 700;
-    color: #fcd34d;
+    color: #38bdf8;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -328,6 +363,21 @@ h1 {
     color: #cbd5e1;
     letter-spacing: 0.03em;
     font-variant-numeric: tabular-nums;
+}
+
+.clock-zone-day {
+    font-size: 0.68rem;
+    padding: 2px 5px;
+    color: #7dd3fc;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.clock-zone-item:hover .clock-zone-day {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.18);
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
 }
 
 /* TABLE */
@@ -498,12 +548,12 @@ td:hover [class^="highlight-"] {
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.2), inset 0 0 10px rgba(56, 189, 248, 0.1);
 }
 
-/* Time Zone: Amber/Gold Glow */
+/* Time Zone: Electric Blue Glow */
 .highlight-time {
-    background: rgba(245, 158, 11, 0.1);
-    color: #fcd34d;
-    border: 1px solid rgba(245, 158, 11, 0.5);
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.2), inset 0 0 10px rgba(245, 158, 11, 0.1);
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2), inset 0 0 10px rgba(56, 189, 248, 0.1);
 }
 
 /* XG: Teal Glow */
